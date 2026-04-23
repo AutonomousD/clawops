@@ -9,7 +9,7 @@ export default async function SuccessPage({
   const resolvedParams = await searchParams;
   const jwtToken = resolvedParams.jwt || '';
   const slug = resolvedParams.slug || 'Unknown Package';
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://192.168.0.18:3000';
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.claw.ai';
 
   const headersList = await headers();
   const userAgent = headersList.get('user-agent') || '';
