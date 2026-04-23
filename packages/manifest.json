@@ -1,0 +1,139 @@
+{
+  "version": "1.0.0",
+  "provider_defaults": {
+    "runtime": "zeroclaw",
+    "auth_method": "mobile_oauth_loopback",
+    "google_required": true
+  },
+  "packages": [
+    {
+      "slug": "job-hunter-pro",
+      "name": "The 24/7 Job Hunter",
+      "price_gbp": 49,
+      "billing_cycle": "monthly",
+      "features": [
+        "Unlimited Resume Matching",
+        "Auto-Save to Google Drive",
+        "Instant Telegram Alerts",
+        "Tailored Cover Letter Generation"
+      ],
+      "google_stack": {
+        "drive_folder": "AI_Job_Archive",
+        "sheets_name": "Job_Application_Tracker"
+      },
+      "required_inputs": [
+        "resume_pdf",
+        "target_roles",
+        "target_locations",
+        "openrouter_key"
+      ],
+      "system_prompt": "You are an elite career agent. Match job postings to the uploaded resume. Save high-probability matches as PDFs to Google Drive. You MUST log technical requirements and matches to the Google Sheet by formatting your output EXACTLY as this JSON array of arrays for the `gws sheets append` command: [[\"Company\", \"Role\", \"Match Percentage\", \"Key Missing Skills\", \"Link\"]]. Do not include markdown code blocks in your JSON output.",
+      "install_hooks": [
+        "gws drive mkdir AI_Job_Archive",
+        "gws sheets create Job_Application_Tracker"
+      ]
+    },
+    {
+      "slug": "lead-responder",
+      "name": "The Instant Lead Responder",
+      "price_gbp": 99,
+      "billing_cycle": "monthly",
+      "features": [
+        "24/7 WhatsApp Response",
+        "Automated CRM Sync",
+        "Calendar Booking Agent",
+        "Custom Brand Voice"
+      ],
+      "google_stack": {
+        "sheets_name": "Sales_Pipeline_CRM",
+        "calendar_name": "Lead_Followups"
+      },
+      "required_inputs": [
+        "business_faq",
+        "whatsapp_token",
+        "tone_voice",
+        "openrouter_key"
+      ],
+      "system_prompt": "You are a professional sales assistant. Qualify incoming leads based on the FAQ. IMPORTANT: You must Triage every lead into one of three categories: 'Hot' (ready to buy), 'Warm' (has questions, interested), or 'Cold' (unqualified or budget mismatch). Log all contact details along with their Triage Category to the Sales_Pipeline_CRM sheet and schedule a 'Discovery Call' in Google Calendar ONLY if the lead is Hot or Warm.",
+      "install_hooks": [
+        "gws sheets create Sales_Pipeline_CRM",
+        "gws calendar create Lead_Followups"
+      ]
+    },
+    {
+      "slug": "smart-reporter",
+      "name": "The Smart Reporter",
+      "price_gbp": 29,
+      "billing_cycle": "monthly",
+      "features": [
+        "Weekly Google Docs Reports",
+        "Automated Slide Generation",
+        "Data Aggregation",
+        "Client Ready Templates"
+      ],
+      "google_stack": {
+        "docs_folder": "AI_Weekly_Reports",
+        "slides_template": "Client_Update_Template"
+      },
+      "required_inputs": [
+        "client_name",
+        "reporting_frequency",
+        "data_sources"
+      ],
+      "system_prompt": "You are a data analyst. Aggregate all ZeroClaw logs and activity. Every Friday, generate a structured Google Doc report using the following EXACT Markdown format:\\n\\n# Weekly ZeroClaw Report\\n**Date:** [Date]\\n\\n## 🏆 Wins & Highlights\\n- [Highlight 1]\\n\\n## 📈 Lead Generation\\n- Hot Leads: [Count]\\n- Warm Leads: [Count]\\n\\n## 🛠 Tasks Completed\\n- [Task 1]\\n\\nEnsure this markdown structure is strictly followed when saving to Google Drive.",
+      "install_hooks": [
+        "gws drive mkdir AI_Weekly_Reports"
+      ]
+    },
+    {
+      "slug": "github-automator",
+      "name": "The GitHub Workflow Manager",
+      "price_gbp": 79,
+      "billing_cycle": "monthly",
+      "features": [
+        "Automated Issue Syncing",
+        "Code Sprint Roadmapping",
+        "PR Deadline Tracking",
+        "Slack Integration"
+      ],
+      "google_stack": {
+        "calendar_name": "Code_Sprint_Roadmap",
+        "sheets_name": "Issue_Backlog_Sync"
+      },
+      "required_inputs": [
+        "github_token",
+        "repo_links",
+        "sprint_duration"
+      ],
+      "system_prompt": "You are a technical project manager. Monitor GitHub repos. Sync new Issues to the Google Sheet and map PR deadlines to the Google Calendar.",
+      "install_hooks": [
+        "gws calendar create Code_Sprint_Roadmap"
+      ]
+    },
+    {
+      "slug": "personal-admin",
+      "name": "The Personal Admin & Auditor",
+      "price_gbp": 149,
+      "billing_cycle": "monthly",
+      "features": [
+        "Email Triage",
+        "Invoice Extraction",
+        "Urgent Task Summaries",
+        "Finance Archive Organization"
+      ],
+      "google_stack": {
+        "drive_folder": "Finance_Archive_2026",
+        "sheets_name": "Task_Triage_Log"
+      },
+      "required_inputs": [
+        "gmail_filters",
+        "urgency_rules"
+      ],
+      "system_prompt": "You are a senior executive assistant. Scan Gmail for attachments. Move invoices and receipts to the Finance_Archive Drive folder. Summarize urgent threads in the Task_Triage_Log sheet.",
+      "install_hooks": [
+        "gws drive mkdir Finance_Archive_2026",
+        "gws sheets create Task_Triage_Log"
+      ]
+    }
+  ]
+}

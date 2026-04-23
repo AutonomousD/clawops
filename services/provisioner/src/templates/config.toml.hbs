@@ -1,0 +1,22 @@
+# ZeroClaw Configuration
+# Package: {{pkg.name}} ({{pkg.slug}})
+
+[core]
+runtime = "{{provider_defaults.runtime}}"
+auth_method = "{{provider_defaults.auth_method}}"
+google_required = {{provider_defaults.google_required}}
+
+[system]
+prompt = """
+{{pkg.system_prompt}}
+"""
+
+[google_stack]
+{{#each pkg.google_stack}}
+{{@key}} = "{{this}}"
+{{/each}}
+
+[inputs]
+{{#each inputs}}
+{{@key}} = "{{this}}"
+{{/each}}

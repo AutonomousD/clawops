@@ -1,0 +1,30 @@
+{
+  "name": "provisioner",
+  "version": "1.0.0",
+  "description": "ZeroClaw Provisioning API",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@vercel/postgres": "^0.10.0",
+    "cors": "^2.8.6",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.45.2",
+    "express": "^4.19.2",
+    "handlebars": "^4.7.8",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.12.7",
+    "drizzle-kit": "^0.31.10",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.4.5"
+  }
+}
