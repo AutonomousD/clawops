@@ -27,7 +27,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://192.168.0.18:3000';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://clawops-production-de73.up.railway.app';
         const [provRes, telRes] = await Promise.all([
           fetch(`${apiUrl}/api/provision`).then(res => res.ok ? res.json() : { logs: [] }),
           fetch(`${apiUrl}/api/telemetry`).then(res => res.ok ? res.json() : { logs: [] })

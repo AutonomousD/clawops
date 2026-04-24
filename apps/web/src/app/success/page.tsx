@@ -9,7 +9,7 @@ export default async function SuccessPage({
   const resolvedParams = await searchParams;
   const jwtToken = resolvedParams.jwt || '';
   const slug = resolvedParams.slug || 'Unknown Package';
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.clawops';
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://clawops-production-de73.up.railway.app';
 
   const headersList = await headers();
   const userAgent = headersList.get('user-agent') || '';

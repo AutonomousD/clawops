@@ -26,7 +26,7 @@ export default function DeployClient({
     setErrorMessage('');
     
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://192.168.0.18:3000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://clawops-production-de73.up.railway.app';
       const response = await fetch(`${apiUrl}/api/provision`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
