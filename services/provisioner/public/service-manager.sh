@@ -1,5 +1,5 @@
 #!/bin/bash
-# ZeroClaw Service Manager
+# ClawOps Service Manager
 
 COMMAND=$1
 
@@ -31,45 +31,45 @@ case "$COMMAND" in
         termux-wake-lock
         echo "Termux wake-lock acquired."
       fi
-      sv up zeroclaw
-      echo "ZeroClaw service started."
+      sv up clawops
+      echo "ClawOps service started."
     elif [ "$SVC_MANAGER" == "systemd" ]; then
-      sudo systemctl start zeroclaw
-      echo "ZeroClaw service started."
+      sudo systemctl start clawops
+      echo "ClawOps service started."
     fi
     ;;
   stop)
     if [ "$SVC_MANAGER" == "termux" ]; then
-      sv down zeroclaw
-      echo "ZeroClaw service stopped."
+      sv down clawops
+      echo "ClawOps service stopped."
       if command -v termux-wake-unlock &> /dev/null; then
         termux-wake-unlock
         echo "Termux wake-lock released."
       fi
     elif [ "$SVC_MANAGER" == "systemd" ]; then
-      sudo systemctl stop zeroclaw
-      echo "ZeroClaw service stopped."
+      sudo systemctl stop clawops
+      echo "ClawOps service stopped."
     fi
     ;;
   restart)
     if [ "$SVC_MANAGER" == "termux" ]; then
-      sv restart zeroclaw
-      echo "ZeroClaw service restarted."
+      sv restart clawops
+      echo "ClawOps service restarted."
     elif [ "$SVC_MANAGER" == "systemd" ]; then
-      sudo systemctl restart zeroclaw
-      echo "ZeroClaw service restarted."
+      sudo systemctl restart clawops
+      echo "ClawOps service restarted."
     fi
     ;;
   logs)
     if [ "$SVC_MANAGER" == "termux" ]; then
-      LOG_FILE="$PREFIX/var/log/sv/zeroclaw/current"
+      LOG_FILE="$PREFIX/var/log/sv/clawops/current"
       if [ -f "$LOG_FILE" ]; then
         tail -f "$LOG_FILE"
       else
         echo "Log file not found at $LOG_FILE"
       fi
     elif [ "$SVC_MANAGER" == "systemd" ]; then
-      journalctl -u zeroclaw -f
+      journalctl -u clawops -f
     fi
     ;;
   *)

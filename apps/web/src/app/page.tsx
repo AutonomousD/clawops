@@ -11,7 +11,7 @@ export default function Home() {
         {/* Hero Section */}
         <div className="text-center mb-20 space-y-4">
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">
-            ZeroClaw Fleet
+            ClawOps Fleet
           </h1>
           <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto">
             Deploy autonomous, Google-integrated agents directly to your environment. Select a package to begin.

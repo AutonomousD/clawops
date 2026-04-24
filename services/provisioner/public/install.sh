@@ -102,15 +102,15 @@ RES=$?
 rm -f "$TMP_SCRIPT"
 if [ $RES -eq 0 ]; then
   echo -e "${YELLOW}[INFO] Setting up 'claw' command alias...${NC}"
-  mkdir -p ~/.zeroclaw
+  mkdir -p ~/.clawops
   
   TMP_MANAGER=$(mktemp)
   curl -s -f -o "$TMP_MANAGER" "${TARGETS_URL}/../service-manager.sh"
   if [ $? -eq 0 ]; then
-    mv "$TMP_MANAGER" ~/.zeroclaw/service-manager.sh
-    chmod +x ~/.zeroclaw/service-manager.sh
+    mv "$TMP_MANAGER" ~/.clawops/service-manager.sh
+    chmod +x ~/.clawops/service-manager.sh
     
-    ALIAS_CMD="alias claw='bash ~/.zeroclaw/service-manager.sh'"
+    ALIAS_CMD="alias claw='bash ~/.clawops/service-manager.sh'"
     
     if [ -f ~/.bashrc ] && ! grep -q "alias claw=" ~/.bashrc; then
       echo "$ALIAS_CMD" >> ~/.bashrc

@@ -1,5 +1,5 @@
 #!/bin/bash
-# ZeroClaw Doctor - System Health Check & Self-Healing
+# ClawOps Doctor - System Health Check & Self-Healing
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -8,7 +8,7 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 echo -e "${CYAN}==========================================${NC}"
-echo -e "${CYAN}        ZeroClaw Doctor - Health Check    ${NC}"
+echo -e "${CYAN}        ClawOps Doctor - Health Check    ${NC}"
 echo -e "${CYAN}==========================================${NC}\n"
 
 ERRORS=0
@@ -29,19 +29,19 @@ GOOGLE_AUTH="Unknown"
 OPENROUTER_STATUS="Unknown"
 BATTERY_PERCENTAGE="N/A"
 
-# 1. ZeroClaw Pulse
-echo -e "${YELLOW}Checking ZeroClaw Pulse...${NC}"
-if pgrep -x "zeroclaw" > /dev/null; then
+# 1. ClawOps Pulse
+echo -e "${YELLOW}Checking ClawOps Pulse...${NC}"
+if pgrep -x "clawops" > /dev/null; then
   ZEROCLAW_STATUS="Running"
-  echo -e "${GREEN}✓ ZeroClaw process is running.${NC}"
-  if command -v zeroclaw &> /dev/null; then
-    HEARTBEAT=$(zeroclaw agent -m "status" 2>/dev/null)
+  echo -e "${GREEN}✓ ClawOps process is running.${NC}"
+  if command -v clawops &> /dev/null; then
+    HEARTBEAT=$(clawops agent -m "status" 2>/dev/null)
     echo -e "${GREEN}✓ Heartbeat: ${HEARTBEAT:-"OK"}${NC}"
   fi
 else
-  echo -e "${RED}✗ ZeroClaw daemon is NOT running.${NC}"
+  echo -e "${RED}✗ ClawOps daemon is NOT running.${NC}"
   ERRORS=$((ERRORS+1))
-  REPAIRS_AVAILABLE+=("start_zeroclaw")
+  REPAIRS_AVAILABLE+=("start_clawops")
 fi
 
 # 2. Alias Check
@@ -88,8 +88,8 @@ fi
 # 4. Provider Ping (OpenRouter)
 echo -e "\n${YELLOW}Checking AI Provider (OpenRouter) API...${NC}"
 API_KEY=""
-if [ -f ~/.zeroclaw/config.toml ]; then
-  API_KEY=$(grep "openrouter_key" ~/.zeroclaw/config.toml | cut -d '=' -f2 | tr -d ' "')
+if [ -f ~/.clawops/config.toml ]; then
+  API_KEY=$(grep "openrouter_key" ~/.clawops/config.toml | cut -d '=' -f2 | tr -d ' "')
 fi
 if [ -z "$API_KEY" ]; then
   API_KEY=$OPENROUTER_KEY
@@ -107,7 +107,7 @@ if [ -n "$API_KEY" ]; then
   fi
 else
   OPENROUTER_STATUS="Missing"
-  echo -e "${YELLOW}⚠ No OpenRouter API key found in ~/.zeroclaw/config.toml or OPENROUTER_KEY env var.${NC}"
+  echo -e "${YELLOW}⚠ No OpenRouter API key found in ~/.clawops/config.toml or OPENROUTER_KEY env var.${NC}"
 fi
 
 # 5. Nothing Phone Health (Termux Battery/Power)
@@ -139,7 +139,7 @@ if [ "$SEND_TELEMETRY" -eq 1 ]; then
   echo -e "${YELLOW}[INFO] Sending telemetry to $TELEMETRY_URL...${NC}"
   curl -s -X POST "$TELEMETRY_URL" \
     -H "Content-Type: application/json" \
-    -d "{\"environment\": \"$ENVIRONMENT\", \"zeroclaw_status\": \"$ZEROCLAW_STATUS\", \"google_auth\": \"$GOOGLE_AUTH\", \"openrouter_status\": \"$OPENROUTER_STATUS\", \"battery_percentage\": \"$BATTERY_PERCENTAGE\", \"error_count\": $ERRORS}" > /dev/null
+    -d "{\"environment\": \"$ENVIRONMENT\", \"clawops_status\": \"$ZEROCLAW_STATUS\", \"google_auth\": \"$GOOGLE_AUTH\", \"openrouter_status\": \"$OPENROUTER_STATUS\", \"battery_percentage\": \"$BATTERY_PERCENTAGE\", \"error_count\": $ERRORS}" > /dev/null
 fi
 
 if [ $ERRORS -eq 0 ]; then
@@ -158,18 +158,18 @@ else
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
       for repair in "${REPAIRS_AVAILABLE[@]}"; then
-        if [ "$repair" == "start_zeroclaw" ]; then
-          echo -e "${CYAN}[Repair] Starting ZeroClaw daemon...${NC}"
+        if [ "$repair" == "start_clawops" ]; then
+          echo -e "${CYAN}[Repair] Starting ClawOps daemon...${NC}"
           if command -v claw &> /dev/null; then
             claw start
-          elif [ -f ~/.zeroclaw/service-manager.sh ]; then
-            bash ~/.zeroclaw/service-manager.sh start
+          elif [ -f ~/.clawops/service-manager.sh ]; then
+            bash ~/.clawops/service-manager.sh start
           else
             echo -e "${RED}Failed: 'claw' command or service-manager.sh not found.${NC}"
           fi
         elif [ "$repair" == "add_alias" ]; then
           echo -e "${CYAN}[Repair] Adding 'claw' alias to shell profiles...${NC}"
-          ALIAS_CMD="alias claw='bash ~/.zeroclaw/service-manager.sh'"
+          ALIAS_CMD="alias claw='bash ~/.clawops/service-manager.sh'"
           if [ -f ~/.bashrc ] && ! grep -q "alias claw=" ~/.bashrc; then
             echo "$ALIAS_CMD" >> ~/.bashrc
             echo -e "${GREEN}Added to .bashrc${NC}"

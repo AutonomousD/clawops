@@ -41,7 +41,7 @@ export default async function SuccessPage({
               >
                 <span className="flex items-center justify-center">
                   <span className="w-3 h-3 bg-red-600 rounded-full mr-4 animate-ping"></span>
-                  Initialize AI Worker
+                  DEPLOY CLAW OPS NODE
                 </span>
               </a>
             ) : (

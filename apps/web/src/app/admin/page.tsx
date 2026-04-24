@@ -12,7 +12,7 @@ interface ProvisionLog {
 interface TelemetryLog {
   timestamp: string;
   environment: string;
-  zeroclaw_status: string;
+  clawops_status: string;
   google_auth: string;
   openrouter_status: string;
   battery_percentage: string;
@@ -66,7 +66,7 @@ export default function AdminDashboard() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 border-b border-neutral-800 pb-6">
           <div>
-            <h1 className="text-3xl font-extrabold text-white">ZeroClaw Fleet Command</h1>
+            <h1 className="text-3xl font-extrabold text-white">ClawOps Fleet Command</h1>
             <p className="text-neutral-400 mt-1">Real-time provisioning and telemetry dashboard.</p>
           </div>
           <div className="mt-4 md:mt-0">
@@ -171,7 +171,7 @@ export default function AdminDashboard() {
                           </div>
                           <div className="text-sm text-neutral-300 grid grid-cols-2 gap-x-4 gap-y-1">
                             <div><span className="text-neutral-500">Google:</span> {log.google_auth}</div>
-                            <div><span className="text-neutral-500">Daemon:</span> {log.zeroclaw_status}</div>
+                            <div><span className="text-neutral-500">Daemon:</span> {log.clawops_status}</div>
                             <div><span className="text-neutral-500">Battery:</span> {log.battery_percentage}%</div>
                             <div><span className="text-neutral-500">LLM:</span> {log.openrouter_status}</div>
                           </div>

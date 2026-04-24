@@ -1,7 +1,7 @@
 #!/bin/bash
-# Termux installer for ZeroClaw wrappers
+# Termux installer for ClawOps wrappers
 
-echo "Starting ZeroClaw Setup via Termux..."
+echo "Starting ClawOps Setup via Termux..."
 
 if [ -z "$1" ]; then
   echo "Error: TOKEN argument is required."
@@ -45,9 +45,9 @@ if [ "$CONFIG_TOML" == "null" ] || [ -z "$CONFIG_TOML" ]; then
 fi
 
 # Create directory and write config
-mkdir -p ~/.zeroclaw
-echo "$CONFIG_TOML" > ~/.zeroclaw/config.toml
-echo "Wrote configuration to ~/.zeroclaw/config.toml"
+mkdir -p ~/.clawops
+echo "$CONFIG_TOML" > ~/.clawops/config.toml
+echo "Wrote configuration to ~/.clawops/config.toml"
 
 # Extract and run install hooks
 HOOKS_COUNT=$(echo -n "$PAYLOAD_JSON" | jq '.install_hooks | length')
@@ -63,12 +63,12 @@ else
   echo "No install hooks found."
 fi
 
-# Start ZeroClaw daemon
-if [ -f ~/.zeroclaw/service-manager.sh ]; then
-  echo "Starting ZeroClaw daemon..."
-  bash ~/.zeroclaw/service-manager.sh start
+# Start ClawOps daemon
+if [ -f ~/.clawops/service-manager.sh ]; then
+  echo "Starting ClawOps daemon..."
+  bash ~/.clawops/service-manager.sh start
 elif command -v claw &> /dev/null; then
-  echo "Starting ZeroClaw via alias..."
+  echo "Starting ClawOps via alias..."
   claw start
 fi
 
@@ -79,10 +79,10 @@ sleep 3
 PACKAGE_SLUG=$(echo -n "$PAYLOAD_JSON" | jq -r '.package_slug // "your automated workflow"')
 
 echo "Sending First Run notification to your channel..."
-if command -v zeroclaw &> /dev/null; then
-  zeroclaw agent -m "System Online. I have created your Google Drive folders and I am now monitoring $PACKAGE_SLUG. Check your Google Sheet here: your Google Drive Recent Tab."
+if command -v clawops &> /dev/null; then
+  clawops agent -m "System Online. I have created your Google Drive folders and I am now monitoring $PACKAGE_SLUG. Check your Google Sheet here: your Google Drive Recent Tab."
 else
-  echo "zeroclaw command not found in PATH, skipping notification."
+  echo "clawops command not found in PATH, skipping notification."
 fi
 
-echo "ZeroClaw Termux setup complete."
+echo "ClawOps Termux setup complete."

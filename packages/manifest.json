@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "provider_defaults": {
-    "runtime": "zeroclaw",
+    "runtime": "clawops",
     "auth_method": "mobile_oauth_loopback",
     "google_required": true
   },
@@ -80,7 +80,7 @@
         "reporting_frequency",
         "data_sources"
       ],
-      "system_prompt": "You are a data analyst. Aggregate all ZeroClaw logs and activity. Every Friday, generate a structured Google Doc report using the following EXACT Markdown format:\\n\\n# Weekly ZeroClaw Report\\n**Date:** [Date]\\n\\n## 🏆 Wins & Highlights\\n- [Highlight 1]\\n\\n## 📈 Lead Generation\\n- Hot Leads: [Count]\\n- Warm Leads: [Count]\\n\\n## 🛠 Tasks Completed\\n- [Task 1]\\n\\nEnsure this markdown structure is strictly followed when saving to Google Drive.",
+      "system_prompt": "You are a data analyst. Aggregate all ClawOps logs and activity. Every Friday, generate a structured Google Doc report using the following EXACT Markdown format:\\n\\n# Weekly ClawOps Report\\n**Date:** [Date]\\n\\n## 🏆 Wins & Highlights\\n- [Highlight 1]\\n\\n## 📈 Lead Generation\\n- Hot Leads: [Count]\\n- Warm Leads: [Count]\\n\\n## 🛠 Tasks Completed\\n- [Task 1]\\n\\nEnsure this markdown structure is strictly followed when saving to Google Drive.",
       "install_hooks": [
         "gws drive mkdir AI_Weekly_Reports"
       ]
